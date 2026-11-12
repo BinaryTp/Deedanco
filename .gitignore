@@ -28,3 +28,5 @@ __pycache__
 *.pyc
 .env
 >>>>>>> 9100df03cee7e830000a4fed2bf14fa06bc4dc27
+# Generated embeddings / vector index
+vector_store/
