@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-11-13T12:38:48.765863",
+  "total_contradictions": 4,
+  "contradictions": [
+    {
+      "id": 2,
+      "topic": "casual leave",
+      "confidence": 0.95,
+      "detection_method": "llm",
+      "explanation": "Both claims refer to the same rule for employees\u2019 casual leave but give different entitlements (18 days vs 20 days). The second claim\u2019s condition is a version label, which does not override the first, so the documents conflict.",
+      "statement_1": {
+        "text": "Employees are entitled to 18 days of casual leave per year.",
+        "source": "policy_2024.txt (txt file)"
+      },
+      "statement_2": {
+        "text": "Employees are entitled to 20 days of casual leave per year as per the new circular.",
+        "source": "policy_2026_circular.txt (txt file)"
+      }
+    },
+    {
+      "id": 4,
+      "topic": "remote work",
+      "confidence": 0.95,
+      "detection_method": "llm",
+      "explanation": "Claim A permits remote work up to 2 days per week with manager approval, while Claim B states remote work is not allowed unless HR gives written approval, so the two rules conflict for the same group of employees.",
+      "statement_1": {
+        "text": "Employees may work remotely up to 2 days per week with prior approval from their manager.",
+        "source": "policy_2024.txt (txt file)"
+      },
+      "statement_2": {
+        "text": "Remote work is not permitted for any employee without written approval from HR.",
+        "source": "policy_2026_circular.txt (txt file)"
+      }
+    },
+    {
+      "id": 5,
+      "topic": "remote work",
+      "confidence": 0.95,
+      "detection_method": "llm",
+      "explanation": "Both claims address remote work for employees, but Claim A limits all employees to 2 days per week with manager approval, while Claim B grants the marketing team unrestricted remote work without approval, directly conflicting the same rule for a subset of employees.",
+      "statement_1": {
+        "text": "Employees may work remotely up to 2 days per week with prior approval from their manager.",
+        "source": "policy_2024.txt (txt file)"
+      },
+      "statement_2": {
+        "text": "The marketing team is allowed to work remotely without any approval.",
+        "source": "policy_2026_circular.txt (txt file)"
+      }
+    },
+    {
+      "id": 6,
+      "topic": "remote work",
+      "confidence": 0.95,
+      "detection_method": "llm",
+      "explanation": "The policy says employees cannot work remotely without HR approval, yet it also states the marketing team can work remotely without any approval, which conflicts because the marketing team is a subset of employees.",
+      "statement_1": {
+        "text": "Remote work is not permitted for any employee without written approval from HR.",
+        "source": "policy_2026_circular.txt (txt file)"
+      },
+      "statement_2": {
+        "text": "The marketing team is allowed to work remotely without any approval.",
+        "source": "policy_2026_circular.txt (txt file)"
+      }
+    }
+  ]
+}
