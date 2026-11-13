@@ -15,8 +15,8 @@ def _cosine_similarity(a, b):
 
 
 def embed_claims(claims):
-    """Generate one embedding per claim, based on its original sentence text."""
-    texts = [c["original_text"] for c in claims]
+    """Generate one embedding per claim, based on its extracted topic (falls back to sentence text)."""
+    texts = [c.get("topic") or c["original_text"] for c in claims]
     embeddings = [generate_embedding(t) for t in texts]
     return np.asarray(embeddings).astype("float32")
 

@@ -43,13 +43,36 @@ def _extract_number(value_str):
     return float(match.group()) if match else None
 
 
+def _normalize_entity(e):
+    return e.strip().lower() if e else ""
+
+
+def _entities_match(a, b):
+    return _normalize_entity(a) == _normalize_entity(b)
+
+
+def _is_subgroup(a, b):
+    na, nb = _normalize_entity(a), _normalize_entity(b)
+    if not na or not nb or na == nb:
+        return False
+    return na in nb or nb in na
+
+
 def _rule_based_check(claim_a, claim_b):
-    """
-    Cheap, deterministic check tried before calling the LLM.
-    Returns a result dict if confident, otherwise None (defer to LLM).
-    """
-    if claim_a["topic"] != claim_b["topic"] or claim_a["entity"] != claim_b["entity"]:
+    if claim_a["topic"] != claim_b["topic"]:
         return None
+
+    entity_a, entity_b = claim_a["entity"], claim_b["entity"]
+
+    if not _entities_match(entity_a, entity_b):
+        if _is_subgroup(entity_a, entity_b):
+            return {
+                "relationship": "agreement",
+                "explanation": f"'{entity_a}' and '{entity_b}' are different scopes (one is a subgroup of the other), so differing values for this topic do not necessarily conflict.",
+                "confidence": 0.85,
+                "method": "rule-based-scope"
+            }
+        return None  # genuinely different entities — let the LLM reason about it
 
     num_a = _extract_number(claim_a["value"])
     num_b = _extract_number(claim_b["value"])
@@ -57,7 +80,6 @@ def _rule_based_check(claim_a, claim_b):
     if num_a is None or num_b is None:
         return None
 
-    # If either claim has a distinguishing condition, don't trust the rule alone
     if claim_a.get("condition") or claim_b.get("condition"):
         return None
 
