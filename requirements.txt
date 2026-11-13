@@ -7,3 +7,5 @@ openai
 numpy
 pandas
 faiss-cpu
+flask
+flask-cors
