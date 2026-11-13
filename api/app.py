@@ -39,8 +39,8 @@ def analyze():
         filename = secure_filename(file.filename)
         file_path = os.path.join(UPLOAD_DIR, filename)
         file.save(file_path)
-        saved_filenames.append(filename)
-
+        user_id = request.form.get("user_id")
+        save_findings_to_db(findings, user_id=user_id)
         try:
             result = load_document(file_path)
         except ValueError as e:

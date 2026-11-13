@@ -17,7 +17,7 @@ def init_db(db_path=DB_PATH, schema_path=SCHEMA_PATH):
     conn.close()
 
 
-def save_findings_to_db(findings, db_path=DB_PATH):
+def save_findings_to_db(findings, user_id=None, db_path=DB_PATH):
     """Persist only genuine contradictions into SQLite. Returns how many were saved."""
     init_db(db_path)
     conn = sqlite3.connect(db_path)
@@ -30,10 +30,11 @@ def save_findings_to_db(findings, db_path=DB_PATH):
 
         cursor.execute("""
             INSERT INTO contradictions
-            (topic, relationship, confidence, method, explanation,
+            (user_id, topic, relationship, confidence, method, explanation,
              claim_a_text, claim_a_source, claim_b_text, claim_b_source)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
+            user_id,
             f["claim_a"].get("topic"),
             f["relationship"],
             f["confidence"],

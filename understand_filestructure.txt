@@ -1,0 +1,18 @@
+Contradiction_Detection/
+├── api/              → Flask API
+├── web/              → Express server
+├── frontend/         → React + Tailwind UI
+├── src/
+│   ├── ingestion/
+│   ├── extraction/
+│   ├── clustering/
+│   ├── detection/
+│   ├── reporting/
+│   └── embedding/    ← now properly nested
+├── data/
+├── db/
+├── tests/
+├── ARCHITECTURE.md   ← new
+├── README.md
+├── requirements.txt
+└── .gitignore
