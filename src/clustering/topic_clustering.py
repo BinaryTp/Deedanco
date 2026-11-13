@@ -3,8 +3,8 @@ import sys
 import numpy as np
 
 # Import the teammate's embedding function directly, without duplicating it
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "embedding"))
-from embedding import generate_embedding
+
+from embedding.embedding import generate_embedding
 
 SIMILARITY_THRESHOLD = 0.80  # tune this: higher = stricter grouping
 
